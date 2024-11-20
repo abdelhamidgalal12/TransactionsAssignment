@@ -1,0 +1,73 @@
+<mat-card class="transaction-card" aria-live="assertive">
+  <mat-card-title>Process Transaction</mat-card-title>
+
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()" #transactionForm="ngForm" aria-describedby="form-error-message">
+
+      <!-- Processing Code -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Processing Code</mat-label>
+        <input matInput [(ngModel)]="transaction.processingCode" name="processingCode" required aria-required="true" />
+        <mat-error *ngIf="formErrors['processingCode']">{{ formErrors['processingCode'] }}</mat-error>
+      </mat-form-field>
+
+      <!-- System Trace Number -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>System Trace Number</mat-label>
+        <input matInput [(ngModel)]="transaction.systemTraceNr" name="systemTraceNr" required />
+      </mat-form-field>
+
+      <!-- Function Code -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Function Code</mat-label>
+        <input matInput [(ngModel)]="transaction.functionCode" name="functionCode" required />
+      </mat-form-field>
+
+      <!-- Card Number -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Card Number</mat-label>
+        <input matInput [(ngModel)]="transaction.cardNo" name="cardNo" required aria-required="true" />
+        <mat-error *ngIf="formErrors['cardNo']">{{ formErrors['cardNo'] }}</mat-error>
+      </mat-form-field>
+
+      <!-- Card Holder -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Card Holder</mat-label>
+        <input matInput [(ngModel)]="transaction.cardHolder" name="cardHolder" required />
+      </mat-form-field>
+      
+      <!-- Amount -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Amount</mat-label>
+        <input matInput [(ngModel)]="transaction.amountTrxn" name="amountTrxn" required type="number" aria-required="true" />
+        <mat-error *ngIf="formErrors['amountTrxn']">{{ formErrors['amountTrxn'] }}</mat-error>
+      </mat-form-field>
+
+      <!-- Currency Code -->
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Currency Code</mat-label>
+        <input matInput [(ngModel)]="transaction.currencyCode" name="currencyCode" required aria-required="true" />
+        <mat-error *ngIf="formErrors['currencyCode']">{{ formErrors['currencyCode'] }}</mat-error>
+      </mat-form-field>
+
+      <!-- Submit Button -->
+      <div class="button-container">
+        <button mat-raised-button color="primary" type="submit" [disabled]="isLoading || !transactionForm.valid" aria-label="Submit transaction">Submit</button>
+      </div>
+    </form>
+
+    <!-- Loading Spinner -->
+    <mat-progress-spinner *ngIf="isLoading" mode="indeterminate" aria-label="Transaction in progress"></mat-progress-spinner>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="error-message" role="alert" aria-live="assertive">
+      <p>{{ errorMessage }}</p>
+    </div>
+  </mat-card-content>
+
+  <!-- Display Response Message -->
+  <mat-card-footer *ngIf="response.approvalCode">
+    <p><strong>Approval Code:</strong> {{ response.approvalCode }}</p>
+    <p><strong>Message:</strong> {{ response.message }}</p>
+  </mat-card-footer>
+</mat-card>

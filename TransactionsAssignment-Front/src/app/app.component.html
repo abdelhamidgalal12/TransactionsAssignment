@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <span class="title">Payment Application</span>
+  <span class="spacer"></span>
+  <button mat-raised-button color="primary" *ngIf="isLoggedIn()" (click)="logout()">Logout</button>
+
+</mat-toolbar>
+
+<div class="content">
+  <router-outlet></router-outlet>
+</div>
